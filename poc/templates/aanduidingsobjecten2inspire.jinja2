@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='utf-8'?>
+<wfs:FeatureCollection 	xmlns:wfs="http://www.opengis.net/wfs/2.0"
+                          xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                          xmlns:hh="https://www.mercator.vlaanderen.be/raadpleegdienstenmercatorpubliek/hh"
+                          xmlns:ps="http://inspire.ec.europa.eu/schemas/ps/4.0"
+                          xmlns:gn="http://inspire.ec.europa.eu/schemas/gn/4.0"
+                          xmlns:gml="http://www.opengis.net/gml/3.2"
+                          xmlns:er="https://www.mercator.vlaanderen.be/er"
+                          xmlns:base="http://inspire.ec.europa.eu/schemas/base/3.3"
+                          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                          xmlns:xlink="http://www.w3.org/1999/xlink"
+                          numberMatched="unknown"
+                          numberReturned="13890"
+                          timeStamp="2017-08-18T13:21:55.033Z"
+                          xsi:schemaLocation="http://www.opengis.net/wfs/2.0 http://schemas.opengis.net/wfs/2.0/wfs.xsd
+                        http://inspire.ec.europa.eu/schemas/ps/4.0 http://inspire.ec.europa.eu/schemas/ps/4.0/ProtectedSites.xsd
+                        http://www.opengis.net/gml/3.2 http://schemas.opengis.net/gml/3.2.1/gml.xsd">
+    {% macro list_coors(coordinates, id) %}
+        <ps:geometry>
+            <gml:MultiSurface gml:id="geom.{{ id }}" srsDimension="2" srsName="http://www.opengis.net/def/crs/EPSG/0/3035">
+                {% for item in coordinates %}
+                    {% if item|length == 1 %}
+                        <gml:surfaceMember>
+                            <gml:Polygon gml:id="geom.{{ id }}.{{ loop.index }}" srsDimension="2">
+                                <gml:exterior>
+                                    <gml:LinearRing>
+                                        <gml:posList>
+                                            {% for outerc in item[0]|reverse %}
+                                                {{ outerc|replace("[", "")|replace("]","")|replace(",", "") }}
+                                            {% endfor %}
+{#                                            {{ item[0]|replace("[", "")|replace("]","")|replace(",", "") }}#}
+                                        </gml:posList>
+                                    </gml:LinearRing>
+                                </gml:exterior>
+                            </gml:Polygon>
+                        </gml:surfaceMember>
+                    {% else %}
+                        <gml:surfaceMember>
+                        <gml:Polygon gml:id="geom.{{ id }}.{{ loop.index }}" srsDimension="2">
+                            {% for coord in item %}
+                                {% if loop.index == 1 %}
+                                    <gml:exterior>
+                                        <gml:LinearRing>
+                                            <gml:posList>
+                                                {% for outercoord in coord|reverse %}
+                                                {{ outercoord|replace("[", "")|replace("]","")|replace(",", "") }}
+                                            {% endfor %}
+{#                                                {{ coord|replace("[", "")|replace("]","")|replace(",", "") }}#}
+                                            </gml:posList>
+                                        </gml:LinearRing>
+                                    </gml:exterior>
+                                {% else %}
+                                    <gml:interior>
+                                        <gml:LinearRing>
+                                            <gml:posList>
+                                                {% for outercoord in coord|reverse %}
+                                                {{ outercoord|replace("[", "")|replace("]","")|replace(",", "") }}
+                                            {% endfor %}
+{#                                                {{ coord|replace("[", "")|replace("]","")|replace(",", "") }}#}
+                                            </gml:posList>
+                                        </gml:LinearRing>
+                                    </gml:interior>
+                                {% endif %}
+                            {% endfor %}
+                        </gml:Polygon>
+                        </gml:surfaceMember>
+                    {% endif %}
+                {% endfor %}
+            </gml:MultiSurface>
+        </ps:geometry>
+    {% endmacro %}
+    {% for feature in features %}
+        <wfs:member>
+            <ps:ProtectedSite gml:id="id.{{ feature.properties.AANDUID_ID|replace(".0", "") }}">
+                <gml:identifier codeSpace="http://inspire.ec.europa.eu/ids">{{ feature.properties.URI }}</gml:identifier>
+                <gml:name>{{ feature.properties.NAAM }}</gml:name>
+                {{ list_coors(feature.geometry.coordinates, feature.properties.AANDUID_ID|replace(".0", "")) }}
+                <ps:inspireID>
+                    <base:Identifier>
+                        <base:localId>1</base:localId>
+                        <base:namespace>https://id.erfgoed.net/aanduidingsobjecten/</base:namespace>
+                    </base:Identifier>
+                </ps:inspireID>
+                <ps:legalFoundationDate>{{ feature.properties.GELD_START|replace("/", "-") }}T00:00:00Z</ps:legalFoundationDate>
+                <ps:legalFoundationDocument xsi:nil="true"/>
+                <ps:siteDesignation>
+                    <ps:DesignationType>
+                        <ps:designationScheme xlink:href="http://inspire.ec.europa.eu/codelist/DesignationSchemeValue/nationalMonumentsRecord"/>
+                        <ps:designation xlink:href="http://inspire.ec.europa.eu/codelist/NationalMonumentsRecordDesignationValue/monument"/>
+                    </ps:DesignationType>
+                </ps:siteDesignation>
+                <ps:siteName>
+                    <gn:GeographicalName>
+                        <gn:language>nld</gn:language>
+                        <gn:nativeness xsi:nil="true"/>
+                        <gn:nameStatus xsi:nil="true"/>
+                        <gn:sourceOfName xsi:nil="true"/>
+                        <gn:pronunciation xsi:nil="true"/>
+                        <gn:spelling>
+                            <gn:SpellingOfName>
+                                <gn:text>{{ feature.properties.NAAM }}</gn:text>
+                                <gn:script xsi:nil="true"/>
+                            </gn:SpellingOfName>
+                        </gn:spelling>
+                    </gn:GeographicalName>
+                </ps:siteName>
+                <ps:siteProtectionClassification>cultural</ps:siteProtectionClassification>
+            </ps:ProtectedSite>
+        </wfs:member>
+    {% endfor %}
+</wfs:FeatureCollection>
