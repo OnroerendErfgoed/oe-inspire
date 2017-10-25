@@ -15,5 +15,6 @@ ALTERNATIVE TO STETL INSTALLATION
 
 3. python inspire_shape2gjson.py from inside poc folder
 
-4. in command line: 	WORK_DIR=`pwd` 
+4. in command line from directory with config file: 	
+			WORK_DIR=`pwd` 
 			sudo docker run -v ${WORK_DIR}:${WORK_DIR} -w ${WORK_DIR} justb4/stetl:latest -c inspire_config.cfg
