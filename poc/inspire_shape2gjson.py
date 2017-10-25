@@ -14,7 +14,7 @@ outputShp = dir1+'/shapes/'+filename+'_etrs89.shp'
 gjsonfile = r'input/'+filename+'.json'
 finalgjsonfile = 'input/'+filename+'_processed.json'
 srcsrs = 'http://spatialreference.org/ref/epsg/31370/'
-tgtsrs = 'http://spatialreference.org/ref/epsg/3043/'
+tgtsrs = 'http://spatialreference.org/ref/epsg/3035/'
 
 # shape = ogr.Open(origShp)
 

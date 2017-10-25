@@ -26,9 +26,8 @@
                                     <gml:LinearRing>
                                         <gml:posList>
                                             {% for outerc in item[0]|reverse %}
-                                                {{ outerc|replace("[", "")|replace("]","")|replace(",", "") }}
+                                                {{ outerc[0]}} {{ outerc[1] }}
                                             {% endfor %}
-{#                                            {{ item[0]|replace("[", "")|replace("]","")|replace(",", "") }}#}
                                         </gml:posList>
                                     </gml:LinearRing>
                                 </gml:exterior>
@@ -43,9 +42,8 @@
                                         <gml:LinearRing>
                                             <gml:posList>
                                                 {% for outercoord in coord|reverse %}
-                                                {{ outercoord|replace("[", "")|replace("]","")|replace(",", "") }}
+                                                    {{ outercoord[0] }} {{ outercoord[1] }}
                                             {% endfor %}
-{#                                                {{ coord|replace("[", "")|replace("]","")|replace(",", "") }}#}
                                             </gml:posList>
                                         </gml:LinearRing>
                                     </gml:exterior>
@@ -54,9 +52,8 @@
                                         <gml:LinearRing>
                                             <gml:posList>
                                                 {% for outercoord in coord|reverse %}
-                                                {{ outercoord|replace("[", "")|replace("]","")|replace(",", "") }}
+                                                    {{ outercoord[0] }} {{ outercoord[1] }}
                                             {% endfor %}
-{#                                                {{ coord|replace("[", "")|replace("]","")|replace(",", "") }}#}
                                             </gml:posList>
                                         </gml:LinearRing>
                                     </gml:interior>
@@ -77,7 +74,7 @@
                 {{ list_coors(feature.geometry.coordinates, feature.properties.AANDUID_ID|replace(".0", "")) }}
                 <ps:inspireID>
                     <base:Identifier>
-                        <base:localId>1</base:localId>
+                        <base:localId>{{ feature.properties.AANDUID_ID|replace(".0", "") }}</base:localId>
                         <base:namespace>https://id.erfgoed.net/aanduidingsobjecten/</base:namespace>
                     </base:Identifier>
                 </ps:inspireID>
