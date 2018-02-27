@@ -70,7 +70,7 @@
         <wfs:member>
             <ps:ProtectedSite gml:id="id.{{ feature.properties.AANDUID_ID|replace(".0", "") }}">
                 <gml:identifier codeSpace="http://inspire.ec.europa.eu/ids">{{ feature.properties.URI }}</gml:identifier>
-                <gml:name>{{ feature.properties.NAAM }}</gml:name>
+                <gml:name>{{ feature.properties.NAAM|replace("&", "&amp;") }}</gml:name>
                 {{ list_coors(feature.geometry.coordinates, feature.properties.AANDUID_ID|replace(".0", "")) }}
                 <ps:inspireID>
                     <base:Identifier>
@@ -95,7 +95,7 @@
                         <gn:pronunciation xsi:nil="true"/>
                         <gn:spelling>
                             <gn:SpellingOfName>
-                                <gn:text>{{ feature.properties.NAAM }}</gn:text>
+                                <gn:text>{{ feature.properties.NAAM|replace("&", "&amp;") }}</gn:text>
                                 <gn:script xsi:nil="true"/>
                             </gn:SpellingOfName>
                         </gn:spelling>
