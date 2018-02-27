@@ -108,3 +108,4 @@ poc/shapes/aanduidingsobjecten_etrs89*
 poc/input/aanduidingsobjecten.json
 poc/input/aanduidingsobjecten_processed.json
 poc/output/aanduidingsobjecten.gml
+poc/output/aanduidingsobjecten.gfs
