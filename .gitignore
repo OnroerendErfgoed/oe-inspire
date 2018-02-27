@@ -102,3 +102,9 @@ ENV/
 
 # IDE
 .idea/
+
+#intermediate files
+poc/shapes/aanduidingsobjecten_etrs89*
+poc/input/aanduidingsobjecten.json
+poc/input/aanduidingsobjecten_processed.json
+poc/output/aanduidingsobjecten.gml
