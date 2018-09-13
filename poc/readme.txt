@@ -14,6 +14,8 @@ ALTERNATIVE TO STETL INSTALLATION
 2. place shapefile in shapes folder (name it aanduidingsobjecten.shp for the poc, name is still hardcoded in the script)
 
 3. python inspire_shape2gjson.py from inside poc folder
+// voor het moment de crs aanpassen in qgis via 'save as' (naar shapefile in epsg:3035)
+// dees commando dus in commentaar zetten in de python code
 
 4. in command line from directory with config file: 	
 			WORK_DIR=`pwd` 

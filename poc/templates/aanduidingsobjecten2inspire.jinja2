@@ -24,11 +24,7 @@
                             <gml:Polygon gml:id="geom.{{ id }}.{{ loop.index }}" srsDimension="2">
                                 <gml:exterior>
                                     <gml:LinearRing>
-                                        <gml:posList>
-                                            {% for outerc in item[0]|reverse %}
-                                                {{ outerc[0]}} {{ outerc[1] }}
-                                            {% endfor %}
-                                        </gml:posList>
+                                        <gml:posList>{% for outerc in item[0] -%}{{ outerc[1]}} {{ outerc[0] }} {% endfor %}</gml:posList>
                                     </gml:LinearRing>
                                 </gml:exterior>
                             </gml:Polygon>
@@ -40,21 +36,13 @@
                                 {% if loop.index == 1 %}
                                     <gml:exterior>
                                         <gml:LinearRing>
-                                            <gml:posList>
-                                                {% for outercoord in coord|reverse %}
-                                                    {{ outercoord[0] }} {{ outercoord[1] }}
-                                            {% endfor %}
-                                            </gml:posList>
+                                          <gml:posList>{% for outerc in item[0] -%}{{ outerc[1]}} {{ outerc[0] }} {% endfor %}</gml:posList>
                                         </gml:LinearRing>
                                     </gml:exterior>
                                 {% else %}
                                     <gml:interior>
                                         <gml:LinearRing>
-                                            <gml:posList>
-                                                {% for outercoord in coord|reverse %}
-                                                    {{ outercoord[0] }} {{ outercoord[1] }}
-                                            {% endfor %}
-                                            </gml:posList>
+                                          <gml:posList>{% for outerc in item[0] -%}{{ outerc[1]}} {{ outerc[0] }} {% endfor %}</gml:posList>
                                         </gml:LinearRing>
                                     </gml:interior>
                                 {% endif %}
