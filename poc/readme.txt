@@ -9,7 +9,7 @@
 
 ALTERNATIVE TO STETL INSTALLATION
 
-1. docker pull justb4/stetl
+1. docker pull geopython/stetl
 
 2. place shapefile in shapes folder (name it aanduidingsobjecten.shp for the poc, name is still hardcoded in the script)
 
@@ -17,4 +17,4 @@ ALTERNATIVE TO STETL INSTALLATION
 
 4. in command line from directory with config file: 	
 			WORK_DIR=`pwd` 
-			sudo docker run -v ${WORK_DIR}:${WORK_DIR} -w ${WORK_DIR} justb4/stetl:latest -c inspire_config.cfg
+			sudo docker run -v ${WORK_DIR}:${WORK_DIR} -w ${WORK_DIR} geopython/stetl:latest -c inspire_config.cfg
